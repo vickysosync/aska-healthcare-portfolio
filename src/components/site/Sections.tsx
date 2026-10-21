@@ -230,7 +230,7 @@ export function WhySection() {
       <div className="container-x">
         <SectionHeading center eyebrow="Why ASKA Healthcare" title="Values That Guide Our Work" text="The principles we intend to bring to every healthcare engagement." />
         <div className="mt-14 grid gap-px overflow-hidden rounded-xl border bg-border sm:grid-cols-2 lg:grid-cols-3">
-          {values.map((v, i) => { const I = VALUE_ICONS[i % VALUE_ICONS.length]; return (
+          {values.map((v, i) => { const I = VALUE_ICONS[i % VALUE_ICONS.length]!; return (
             <div key={v.id} className="bg-surface p-8 transition-colors hover:bg-accent/40">
               <span className="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-accent text-secondary"><I /></span>
               <h3 className="mt-5 text-lg font-semibold text-primary">{v.title}</h3>
