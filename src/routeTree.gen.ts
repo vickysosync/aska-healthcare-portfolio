@@ -15,10 +15,12 @@ import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminAboutRouteImport } from './routes/admin.about'
 import { Route as AdminContactSettingsRouteImport } from './routes/admin.contact-settings'
 import { Route as AdminDashboardRouteImport } from './routes/admin.dashboard'
+import { Route as AdminEnquiriesRouteImport } from './routes/admin.enquiries'
 import { Route as AdminGalleryRouteImport } from './routes/admin.gallery'
 import { Route as AdminHospitalActivitiesRouteImport } from './routes/admin.hospital-activities'
 import { Route as AdminProductsRouteImport } from './routes/admin.products'
 import { Route as AdminServicesRouteImport } from './routes/admin.services'
+import { Route as AdminSiteSettingsRouteImport } from './routes/admin.site-settings'
 import { Route as AdminTeamRouteImport } from './routes/admin.team'
 import { Route as AdminLoginRouteImport } from './routes/admin_.login'
 
@@ -52,6 +54,11 @@ const AdminDashboardRoute = AdminDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminEnquiriesRoute = AdminEnquiriesRouteImport.update({
+  id: '/enquiries',
+  path: '/enquiries',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminGalleryRoute = AdminGalleryRouteImport.update({
   id: '/gallery',
   path: '/gallery',
@@ -72,6 +79,11 @@ const AdminServicesRoute = AdminServicesRouteImport.update({
   path: '/services',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminSiteSettingsRoute = AdminSiteSettingsRouteImport.update({
+  id: '/site-settings',
+  path: '/site-settings',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminTeamRoute = AdminTeamRouteImport.update({
   id: '/team',
   path: '/team',
@@ -89,10 +101,12 @@ export interface FileRoutesByFullPath {
   '/admin/about': typeof AdminAboutRoute
   '/admin/contact-settings': typeof AdminContactSettingsRoute
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/enquiries': typeof AdminEnquiriesRoute
   '/admin/gallery': typeof AdminGalleryRoute
   '/admin/hospital-activities': typeof AdminHospitalActivitiesRoute
   '/admin/products': typeof AdminProductsRoute
   '/admin/services': typeof AdminServicesRoute
+  '/admin/site-settings': typeof AdminSiteSettingsRoute
   '/admin/team': typeof AdminTeamRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/': typeof AdminIndexRoute
@@ -102,10 +116,12 @@ export interface FileRoutesByTo {
   '/admin/about': typeof AdminAboutRoute
   '/admin/contact-settings': typeof AdminContactSettingsRoute
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/enquiries': typeof AdminEnquiriesRoute
   '/admin/gallery': typeof AdminGalleryRoute
   '/admin/hospital-activities': typeof AdminHospitalActivitiesRoute
   '/admin/products': typeof AdminProductsRoute
   '/admin/services': typeof AdminServicesRoute
+  '/admin/site-settings': typeof AdminSiteSettingsRoute
   '/admin/team': typeof AdminTeamRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin': typeof AdminIndexRoute
@@ -117,10 +133,12 @@ export interface FileRoutesById {
   '/admin/about': typeof AdminAboutRoute
   '/admin/contact-settings': typeof AdminContactSettingsRoute
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/enquiries': typeof AdminEnquiriesRoute
   '/admin/gallery': typeof AdminGalleryRoute
   '/admin/hospital-activities': typeof AdminHospitalActivitiesRoute
   '/admin/products': typeof AdminProductsRoute
   '/admin/services': typeof AdminServicesRoute
+  '/admin/site-settings': typeof AdminSiteSettingsRoute
   '/admin/team': typeof AdminTeamRoute
   '/admin_/login': typeof AdminLoginRoute
   '/admin/': typeof AdminIndexRoute
@@ -133,10 +151,12 @@ export interface FileRouteTypes {
     | '/admin/about'
     | '/admin/contact-settings'
     | '/admin/dashboard'
+    | '/admin/enquiries'
     | '/admin/gallery'
     | '/admin/hospital-activities'
     | '/admin/products'
     | '/admin/services'
+    | '/admin/site-settings'
     | '/admin/team'
     | '/admin/login'
     | '/admin/'
@@ -146,10 +166,12 @@ export interface FileRouteTypes {
     | '/admin/about'
     | '/admin/contact-settings'
     | '/admin/dashboard'
+    | '/admin/enquiries'
     | '/admin/gallery'
     | '/admin/hospital-activities'
     | '/admin/products'
     | '/admin/services'
+    | '/admin/site-settings'
     | '/admin/team'
     | '/admin/login'
     | '/admin'
@@ -160,10 +182,12 @@ export interface FileRouteTypes {
     | '/admin/about'
     | '/admin/contact-settings'
     | '/admin/dashboard'
+    | '/admin/enquiries'
     | '/admin/gallery'
     | '/admin/hospital-activities'
     | '/admin/products'
     | '/admin/services'
+    | '/admin/site-settings'
     | '/admin/team'
     | '/admin_/login'
     | '/admin/'
@@ -219,6 +243,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminDashboardRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/enquiries': {
+      id: '/admin/enquiries'
+      path: '/enquiries'
+      fullPath: '/admin/enquiries'
+      preLoaderRoute: typeof AdminEnquiriesRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/gallery': {
       id: '/admin/gallery'
       path: '/gallery'
@@ -247,6 +278,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminServicesRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/site-settings': {
+      id: '/admin/site-settings'
+      path: '/site-settings'
+      fullPath: '/admin/site-settings'
+      preLoaderRoute: typeof AdminSiteSettingsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/team': {
       id: '/admin/team'
       path: '/team'
@@ -268,10 +306,12 @@ interface AdminRouteChildren {
   AdminAboutRoute: typeof AdminAboutRoute
   AdminContactSettingsRoute: typeof AdminContactSettingsRoute
   AdminDashboardRoute: typeof AdminDashboardRoute
+  AdminEnquiriesRoute: typeof AdminEnquiriesRoute
   AdminGalleryRoute: typeof AdminGalleryRoute
   AdminHospitalActivitiesRoute: typeof AdminHospitalActivitiesRoute
   AdminProductsRoute: typeof AdminProductsRoute
   AdminServicesRoute: typeof AdminServicesRoute
+  AdminSiteSettingsRoute: typeof AdminSiteSettingsRoute
   AdminTeamRoute: typeof AdminTeamRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
@@ -280,10 +320,12 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminAboutRoute: AdminAboutRoute,
   AdminContactSettingsRoute: AdminContactSettingsRoute,
   AdminDashboardRoute: AdminDashboardRoute,
+  AdminEnquiriesRoute: AdminEnquiriesRoute,
   AdminGalleryRoute: AdminGalleryRoute,
   AdminHospitalActivitiesRoute: AdminHospitalActivitiesRoute,
   AdminProductsRoute: AdminProductsRoute,
   AdminServicesRoute: AdminServicesRoute,
+  AdminSiteSettingsRoute: AdminSiteSettingsRoute,
   AdminTeamRoute: AdminTeamRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
