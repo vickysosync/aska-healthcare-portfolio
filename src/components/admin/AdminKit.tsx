@@ -36,7 +36,7 @@ export function ConfirmDialog({ open, title, message, confirmLabel = "Delete", o
   );
 }
 
-export function PageHeader({ title, text, action }: { title: string; text?: string; action?: ReactNode }) {
+export function PageHeader({ title, text, action }: { title: string; text?: string | undefined; action?: ReactNode }) {
   return (
     <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
       <div><h1 className="text-2xl font-semibold text-primary">{title}</h1>{text && <p className="mt-1 text-sm text-muted-foreground">{text}</p>}</div>
@@ -52,7 +52,7 @@ export function Panel({ children, className = "" }: { children: ReactNode; class
 /* ---------- Generic field ---------- */
 export type FieldDef = { key: string; label: string; type: "text" | "textarea" | "select" | "image" | "checkbox"; options?: string[]; required?: boolean; help?: string };
 
-export function FormField({ def, value, onChange, error }: { def: FieldDef; value: unknown; onChange: (v: unknown) => void; error?: string }) {
+export function FormField({ def, value, onChange, error }: { def: FieldDef; value: unknown; onChange: (v: unknown) => void; error?: string | undefined }) {
   const id = `fld-${def.key}`;
   if (def.type === "checkbox")
     return <label className="flex items-center gap-2 text-sm font-medium"><input type="checkbox" className="h-4 w-4 accent-secondary" checked={!!value} onChange={(e) => onChange(e.target.checked)} />{def.label}</label>;
@@ -87,7 +87,7 @@ function ImageUpload({ onLoad, preview }: { onLoad: (v: string) => void; preview
 }
 
 /* ---------- Generic collection manager ---------- */
-type Rec = { id: string; visible?: boolean } & Record<string, unknown>;
+type Rec = { id: string; visible?: boolean };
 export function CollectionManager<T extends Rec>({ title, text, singular, items, setItems, fields, makeNew, idPrefix, primary, secondary, imageKey, searchKeys, filter }: {
   title: string; text?: string; singular: string; items: T[]; setItems: (v: T[]) => void; fields: FieldDef[]; makeNew: () => Omit<T, "id">; idPrefix: string;
   primary: keyof T; secondary?: keyof T; imageKey?: keyof T; searchKeys?: (keyof T)[]; filter?: { key: keyof T; options: string[] };
@@ -106,7 +106,7 @@ export function CollectionManager<T extends Rec>({ title, text, singular, items,
   const save = () => {
     if (!editing) return;
     const errs: Record<string, string> = {};
-    fields.forEach((d) => { if (d.required && !String(editing[d.key] ?? "").trim()) errs[d.key] = `${d.label} is required.`; });
+    fields.forEach((d) => { if (d.required && !String((editing as unknown as Record<string, unknown>)[d.key] ?? "").trim()) errs[d.key] = `${d.label} is required.`; });
     setErrors(errs);
     if (Object.keys(errs).length) { toast("Please fix the highlighted fields.", "err"); return; }
     if (isNew) setItems([...items, { ...editing, id: uid(idPrefix) }]);
@@ -154,7 +154,7 @@ export function CollectionManager<T extends Rec>({ title, text, singular, items,
       <Modal open={!!editing} onClose={() => setEditing(null)} title={`${isNew ? "Add" : "Edit"} ${singular}`}>
         {editing && (
           <form onSubmit={(e) => { e.preventDefault(); save(); }} className="space-y-4">
-            {fields.map((d) => <FormField key={d.key} def={d} value={editing[d.key]} error={errors[d.key]} onChange={(v) => setEditing({ ...editing, [d.key]: v })} />)}
+            {fields.map((d) => <FormField key={d.key} def={d} value={(editing as unknown as Record<string, unknown>)[d.key]} error={errors[d.key]} onChange={(v) => setEditing({ ...editing, [d.key]: v })} />)}
             <div className="flex justify-end gap-2 pt-2"><button type="button" className="btn btn-outline" onClick={() => setEditing(null)}>Cancel</button><button type="submit" className="btn btn-teal">Save</button></div>
           </form>
         )}
